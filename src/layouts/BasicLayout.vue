@@ -22,13 +22,14 @@
 }
 
 #basicLayout .header {
-  background: red;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  box-shadow: #eee 1px 1px 5px;
 }
 
 #basicLayout .content {
   background: linear-gradient(to right, #aaa, #fff);
   margin-bottom: 16px;
+  padding: 20px;
 }
 
 #basicLayout .footer {
