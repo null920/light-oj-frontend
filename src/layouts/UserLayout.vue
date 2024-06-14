@@ -1,14 +1,17 @@
 <template>
-  <div id="basicLayout">
+  <div id="userLayout">
     <a-layout style="height: 400px">
       <a-layout-header class="header">
-        <GlobalHeader />
+        <a-space class="title-bar">
+          <img src="@/assets/logo.svg" class="title-bar-logo" />
+          <div class="title-bar-text">数字灯塔-OJ</div>
+        </a-space>
       </a-layout-header>
       <a-layout-content class="content">
         <router-view />
       </a-layout-content>
-      <a-divider />
       <a-layout-footer class="footer">
+        <a-divider />
         <a class="copyright" href="https://github.com/null920" target="_blank">
           数字灯塔-OJ判题系统 by null920
         </a>
@@ -18,22 +21,37 @@
 </template>
 
 <style scoped>
-#basicLayout {
+#userLayout {
+  text-align: center;
 }
 
-#basicLayout .header {
-  margin-bottom: 8px;
-  box-shadow: #eee 1px 1px 5px;
+#userLayout .header {
+  margin-top: 16px;
+  margin-bottom: 20px;
 }
 
-#basicLayout .content {
-  background: linear-gradient(to right, #aaa, #fff);
+#userLayout .title-bar {
+  padding: 14px;
+}
+
+#userLayout .title-bar-logo {
+  height: 64px;
+}
+
+#userLayout .title-bar-text {
+  font-size: 33px;
+  font-weight: bolder;
+  color: #000;
+  margin-left: 8px;
+}
+
+#userLayout .content {
+  margin-top: 30px;
   margin-bottom: 16px;
   padding: 20px;
 }
 
-#basicLayout .footer {
-  background-color: #f7f8fa;
+#userLayout .footer {
   padding: 20px;
   position: absolute;
   bottom: 0;
@@ -47,6 +65,4 @@
   font-size: 14px;
 }
 </style>
-<script setup lang="ts">
-import GlobalHeader from "@/components/GlobalHeader.vue";
-</script>
+<script setup lang="ts"></script>

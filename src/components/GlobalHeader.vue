@@ -12,7 +12,7 @@
           disabled
         >
           <div class="title-bar">
-            <img class="title-bar-icon" src="../assets/logo.svg" />
+            <img class="title-bar-logo" src="../assets/logo.svg" />
             <div class="title-bar-text">数字灯塔-OJ</div>
           </div>
         </a-menu-item>
@@ -28,25 +28,31 @@
     <a-col flex="100px">
       <a-space size="small">
         <a-avatar auto-fix-font-size trigger-type="mask">
-          <div v-if="!loginUser">
+          <div
+            v-if="
+              !store.state.user?.loginUser.userRole === ACCESS_ENUM.NOT_LOGIN
+            "
+          >
             <IconUser />
           </div>
           <div v-else>未登录</div>
           <template #trigger-icon>
-            <IconEdit v-if="loginUser" />
+            <IconPlus
+              v-if="
+                store.state.user?.loginUser.userRole === ACCESS_ENUM.NOT_LOGIN
+              "
+            />
           </template>
         </a-avatar>
         {{ store.state.user?.loginUser.userName }}
         {{ store.state.user?.loginUser.userRole }}
-        {{ loginUser?.userName }}
-        {{ loginUser?.userRole }}
       </a-space>
     </a-col>
   </a-row>
 </template>
 
 <script setup lang="ts">
-import { IconUser, IconEdit } from "@arco-design/web-vue/es/icon";
+import { IconUser, IconPlus } from "@arco-design/web-vue/es/icon";
 import { routes } from "@/router/routes";
 import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
@@ -85,7 +91,7 @@ setTimeout(() => {
     userName: "null92",
     userRole: ACCESS_ENUM.ADMIN,
   });
-}, 2000);
+}, 3000);
 console.log(loginUser);
 
 const doMenuClick = (key: string) => {
@@ -102,8 +108,8 @@ const doMenuClick = (key: string) => {
   align-items: center;
 }
 
-.title-bar .title-bar-icon {
-  height: 50px;
+.title-bar .title-bar-logo {
+  height: 64px;
 }
 
 .title-bar .title-bar-text {
