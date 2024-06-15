@@ -1,12 +1,15 @@
 <template>
   <div class="userRegisterView">
-    <h2 class="registerText">用户注册</h2>
+    <a-space class="registerText">
+      <div>用户</div>
+      <div>注册</div>
+    </a-space>
     <a-form
       class="registerForm"
       label-align="left"
       :model="form"
       :rules="rules"
-      @submit="handleSubmit"
+      @submit-success="handleSubmit"
       :auto-label-width="true"
     >
       <a-form-item
@@ -45,6 +48,7 @@
         tooltip="确认密码不能少于8个字符"
         :validate-trigger="['change', 'input']"
         :hide-asterisk="true"
+        style="margin-bottom: 10px"
       >
         <a-input-password
           v-model="form.checkPassword"
@@ -56,12 +60,14 @@
           </template>
         </a-input-password>
       </a-form-item>
+      <a-link class="loginLink" href="/user/login" :hoverable="false"
+        >已有账号？去登录
+      </a-link>
       <a-form-item>
         <a-space class="registerButton" direction="vertical">
           <a-button type="primary" shape="round" html-type="submit" long
-            >登录
+            >注册
           </a-button>
-          <a-button type="dashed" shape="round" long>注册</a-button>
         </a-space>
       </a-form-item>
     </a-form>
@@ -74,7 +80,16 @@
 }
 
 .userRegisterView .registerText {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.registerForm .loginLink {
+  text-align: left;
+  display: block;
+  margin-left: 90px;
+  margin-right: auto;
 }
 
 .registerButton {
@@ -91,7 +106,6 @@ import { IconUser, IconLock } from "@arco-design/web-vue/es/icon";
 import { UserControllerService, UserRegisterRequest } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 
 const form = reactive({
   userAccount: "",
@@ -99,17 +113,38 @@ const form = reactive({
   checkPassword: "",
 } as UserRegisterRequest);
 
+const regx = /[^a-zA-Z0-9_]/g;
 const rules = {
   userAccount: [
     {
       required: true,
       message: "用户名为必填项",
     },
+    {
+      validator: (value, cb) => {
+        if (value?.length < 4) {
+          cb("用户名不能少于4位哦");
+        } else {
+          cb();
+        }
+      },
+    },
   ],
   userPassword: [
     {
       required: true,
       message: "密码为必填项",
+    },
+    {
+      validator: (value, cb) => {
+        if (value?.length < 8) {
+          cb("密码不能少于8位哦");
+        } else if (regx.test(value)) {
+          cb("不能包含特殊字符哦");
+        } else {
+          cb();
+        }
+      },
     },
   ],
   checkPassword: [
@@ -120,7 +155,7 @@ const rules = {
     {
       validator: (value, cb) => {
         if (value !== form.userPassword) {
-          cb("two passwords do not match");
+          cb("两次密码不一致哦");
         } else {
           cb();
         }
@@ -130,7 +165,6 @@ const rules = {
 };
 
 const router = useRouter();
-const store = useStore();
 /**
  * 提交表单
  */

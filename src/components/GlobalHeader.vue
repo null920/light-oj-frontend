@@ -26,81 +26,48 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <a-space size="small">
+      <a-dropdown>
         <a-avatar auto-fix-font-size trigger-type="mask">
           <div
             v-if="
-              !store.state.user?.loginUser.userRole === ACCESS_ENUM.NOT_LOGIN
+              store.state.user?.loginUser?.userRole === ACCESS_ENUM.NOT_LOGIN
             "
           >
+            未登录
+          </div>
+          <div v-else>
             <IconUser />
           </div>
-          <div v-else>未登录</div>
-          <template #trigger-icon>
-            <IconPlus
-              v-if="
-                store.state.user?.loginUser.userRole === ACCESS_ENUM.NOT_LOGIN
-              "
-            />
-          </template>
+          <template #trigger-icon></template>
         </a-avatar>
-        {{ store.state.user?.loginUser.userName }}
-        {{ store.state.user?.loginUser.userRole }}
-      </a-space>
+        <template #content>
+          <a-doption
+            v-if="
+              store.state.user?.loginUser?.userRole === ACCESS_ENUM.NOT_LOGIN
+            "
+            @click="doLogin"
+          >
+            <template #icon>
+              <IconImport />
+            </template>
+            <template #default>登录</template>
+          </a-doption>
+          <a-doption
+            v-if="
+              store.state.user?.loginUser?.userRole !== ACCESS_ENUM.NOT_LOGIN
+            "
+            @click="doLogout"
+          >
+            <template #icon>
+              <IconExport />
+            </template>
+            <template #default>退出登录</template>
+          </a-doption>
+        </template>
+      </a-dropdown>
     </a-col>
   </a-row>
 </template>
-
-<script setup lang="ts">
-import { IconUser, IconPlus } from "@arco-design/web-vue/es/icon";
-import { routes } from "@/router/routes";
-import { useRouter } from "vue-router";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
-import checkAccess from "@/access/checkAccess";
-import ACCESS_ENUM from "@/access/accessEnum";
-
-const router = useRouter();
-const store = useStore();
-const loginUser = store.state.user?.loginUser;
-
-const visibleRoutes = computed(() => {
-  return routes.filter((item, index) => {
-    // 隐藏无需展示的菜单
-    if (item.meta?.hideInMenu) {
-      return false;
-    }
-    // 根据权限过滤菜单
-    if (
-      !checkAccess(store.state.user?.loginUser, item?.meta?.access as string)
-    ) {
-      return false;
-    }
-    return true;
-  });
-});
-
-const selectedKey = ref(["/"]);
-
-router.afterEach((to) => {
-  selectedKey.value = [to.path];
-});
-
-setTimeout(() => {
-  store.dispatch("user/getLoginUser", {
-    userName: "null92",
-    userRole: ACCESS_ENUM.ADMIN,
-  });
-}, 3000);
-console.log(loginUser);
-
-const doMenuClick = (key: string) => {
-  router.push({
-    path: key,
-  });
-};
-</script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .title-bar {
@@ -123,3 +90,70 @@ const doMenuClick = (key: string) => {
   font-size: 16px;
 }
 </style>
+
+<script setup lang="ts">
+import { IconUser, IconImport, IconExport } from "@arco-design/web-vue/es/icon";
+import { routes } from "@/router/routes";
+import { useRouter } from "vue-router";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import checkAccess from "@/access/checkAccess";
+import ACCESS_ENUM from "@/access/accessEnum";
+import { UserControllerService } from "../../generated";
+import message from "@arco-design/web-vue/es/message";
+
+const router = useRouter();
+const store = useStore();
+
+// let user = ref(store.state.user);
+// console.log(user.value.loginUser);
+
+const visibleRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    // 隐藏无需展示的菜单
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    // 根据权限过滤菜单
+    if (
+      !checkAccess(store.state.user?.loginUser, item?.meta?.access as string)
+    ) {
+      return false;
+    }
+    return true;
+  });
+});
+
+const selectedKey = ref(["/"]);
+
+router.afterEach((to) => {
+  selectedKey.value = [to.path];
+});
+const doLogin = () => {
+  router.push({
+    path: `/user/login?redirect=${router.currentRoute.value.fullPath}`,
+  });
+};
+
+const doLogout = async () => {
+  const res = await UserControllerService.userLogoutUsingPost();
+  if (res.code === 0) {
+    store.commit("user/setLoginUser", {
+      loginUser: {
+        userName: "未登录",
+      },
+    });
+    message.success("登出成功");
+    window.location.reload();
+  } else {
+    message.error("登出失败," + res.message);
+  }
+};
+
+// 切换菜单
+const doMenuClick = (key: string) => {
+  router.push({
+    path: key,
+  });
+};
+</script>

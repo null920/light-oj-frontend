@@ -17,11 +17,17 @@ export const routes: Array<RouteRecordRaw> = [
         path: "/user/login",
         name: "用户登录",
         component: UserLoginView,
+        meta: {
+          title: "用户登录",
+        },
       },
       {
         path: "/user/register",
         name: "用户注册",
         component: UserRegisterView,
+        meta: {
+          title: "用户注册",
+        },
       },
     ],
     meta: {

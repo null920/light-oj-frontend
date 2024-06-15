@@ -1,11 +1,14 @@
 <template>
   <div class="userLoginView">
-    <h2 class="loginText">用户注册</h2>
+    <a-space class="loginText">
+      <div>用户</div>
+      <div>登录</div>
+    </a-space>
     <a-form
       class="loginForm"
       :model="form"
       :rules="rules"
-      @submit="handleSubmit"
+      @submit-success="handleSubmit"
       :auto-label-width="true"
     >
       <a-form-item
@@ -36,8 +39,13 @@
         </a-input-password>
       </a-form-item>
       <a-form-item>
-        <a-space class="loginButton" direction="vertical">
-          <a-button type="primary" shape="round" html-type="submit" long
+        <a-space class="loginViewButton" direction="vertical">
+          <a-button
+            class="loginButton"
+            type="primary"
+            shape="round"
+            html-type="submit"
+            long
             >登录
           </a-button>
           <a-button
@@ -45,7 +53,7 @@
             shape="round"
             long
             html-type="button"
-            @click="goToRegister"
+            @click="toRegister"
             >注册
           </a-button>
         </a-space>
@@ -55,7 +63,9 @@
 </template>
 <style>
 .userLoginView .loginText {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .loginForm {
@@ -63,11 +73,15 @@
   margin: 0 auto;
 }
 
-.loginButton {
+.loginViewButton {
   width: 400px;
   padding: 10px;
   border: 1px solid var(~"--color-border");
   border-radius: 4px;
+}
+
+.loginViewButton .loginButton {
+  margin-bottom: 5px;
 }
 </style>
 
@@ -78,6 +92,9 @@ import { UserControllerService, UserLoginRequest } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+
+const router = useRouter();
+const store = useStore();
 
 const form = reactive({
   userAccount: "",
@@ -99,15 +116,18 @@ const rules = {
   ],
 };
 
-const router = useRouter();
-const store = useStore();
 /**
  * 提交表单
  */
 const handleSubmit = async () => {
+  message.loading({
+    content: "登录中...",
+    duration: 10000,
+  });
   const res = await UserControllerService.userLoginUsingPost(form);
   if (res.code === 0) {
     await store.dispatch("user/getLoginUser");
+    message.clear();
     message.success("登录成功");
     router.push({
       path: "/",
@@ -121,7 +141,7 @@ const handleSubmit = async () => {
 /**
  * 跳转到注册页面
  */
-const goToRegister = () => {
+const toRegister = () => {
   router.push({
     path: "/user/register",
   });
