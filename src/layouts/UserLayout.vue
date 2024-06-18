@@ -20,6 +20,8 @@
   </div>
 </template>
 
+<script setup lang="ts"></script>
+
 <style scoped>
 #userLayout {
   text-align: center;
@@ -65,4 +67,3 @@
   font-size: 14px;
 }
 </style>
-<script setup lang="ts"></script>

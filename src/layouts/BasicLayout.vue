@@ -17,6 +17,10 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import GlobalHeader from "@/components/GlobalHeader.vue";
+</script>
+
 <style scoped>
 #basicLayout {
 }
@@ -27,7 +31,7 @@
 }
 
 #basicLayout .content {
-  background: linear-gradient(to right, #aaa, #fff);
+  //background: linear-gradient(to right, #aaa, #fff);
   margin-bottom: 16px;
   padding: 20px;
 }
@@ -35,7 +39,7 @@
 #basicLayout .footer {
   background-color: #f7f8fa;
   padding: 20px;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
@@ -47,6 +51,3 @@
   font-size: 14px;
 }
 </style>
-<script setup lang="ts">
-import GlobalHeader from "@/components/GlobalHeader.vue";
-</script>

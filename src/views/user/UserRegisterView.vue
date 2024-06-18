@@ -73,32 +73,6 @@
     </a-form>
   </div>
 </template>
-<style>
-.registerForm {
-  max-width: 340px;
-  margin: 0 auto;
-}
-
-.userRegisterView .registerText {
-  margin-bottom: 60px;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.registerForm .loginLink {
-  text-align: left;
-  display: block;
-  margin-left: 90px;
-  margin-right: auto;
-}
-
-.registerButton {
-  width: 400px;
-  padding: 10px;
-  border: 1px solid var(~"--color-border");
-  border-radius: 4px;
-}
-</style>
 
 <script setup lang="ts">
 import { reactive } from "vue";
@@ -182,3 +156,30 @@ const handleSubmit = async () => {
   console.log(form);
 };
 </script>
+
+<style>
+.registerForm {
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.userRegisterView .registerText {
+  margin-bottom: 60px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.registerForm .loginLink {
+  text-align: left;
+  display: block;
+  margin-left: 90px;
+  margin-right: auto;
+}
+
+.registerButton {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid var(~"--color-border");
+  border-radius: 4px;
+}
+</style>

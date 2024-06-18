@@ -30,6 +30,7 @@
         <a-avatar auto-fix-font-size trigger-type="mask">
           <div
             v-if="
+              !store.state.user?.loginUser?.userRole ||
               store.state.user?.loginUser?.userRole === ACCESS_ENUM.NOT_LOGIN
             "
           >
@@ -43,6 +44,7 @@
         <template #content>
           <a-doption
             v-if="
+              !store.state.user?.loginUser?.userRole ||
               store.state.user?.loginUser?.userRole === ACCESS_ENUM.NOT_LOGIN
             "
             @click="doLogin"
@@ -54,6 +56,7 @@
           </a-doption>
           <a-doption
             v-if="
+              store.state.user?.loginUser?.userRole &&
               store.state.user?.loginUser?.userRole !== ACCESS_ENUM.NOT_LOGIN
             "
             @click="doLogout"
@@ -68,28 +71,6 @@
     </a-col>
   </a-row>
 </template>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.title-bar {
-  display: flex;
-  align-items: center;
-}
-
-.title-bar .title-bar-logo {
-  height: 64px;
-}
-
-.title-bar .title-bar-text {
-  font-size: large;
-  font-weight: bolder;
-  color: #000;
-  margin-left: 16px;
-}
-
-.menu-item-text {
-  font-size: 16px;
-}
-</style>
 
 <script setup lang="ts">
 import { IconUser, IconImport, IconExport } from "@arco-design/web-vue/es/icon";
@@ -157,3 +138,26 @@ const doMenuClick = (key: string) => {
   });
 };
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.title-bar {
+  display: flex;
+  align-items: center;
+}
+
+.title-bar .title-bar-logo {
+  height: 64px;
+}
+
+.title-bar .title-bar-text {
+  font-size: large;
+  font-weight: bolder;
+  color: #000;
+  margin-left: 16px;
+}
+
+.menu-item-text {
+  font-size: 16px;
+}
+</style>

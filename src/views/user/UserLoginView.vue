@@ -61,29 +61,6 @@
     </a-form>
   </div>
 </template>
-<style>
-.userLoginView .loginText {
-  margin-bottom: 60px;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.loginForm {
-  max-width: 340px;
-  margin: 0 auto;
-}
-
-.loginViewButton {
-  width: 400px;
-  padding: 10px;
-  border: 1px solid var(~"--color-border");
-  border-radius: 4px;
-}
-
-.loginViewButton .loginButton {
-  margin-bottom: 5px;
-}
-</style>
 
 <script setup lang="ts">
 import { reactive } from "vue";
@@ -147,3 +124,27 @@ const toRegister = () => {
   });
 };
 </script>
+
+<style>
+.userLoginView .loginText {
+  margin-bottom: 60px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.loginForm {
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.loginViewButton {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid var(~"--color-border");
+  border-radius: 4px;
+}
+
+.loginViewButton .loginButton {
+  margin-bottom: 5px;
+}
+</style>
