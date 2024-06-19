@@ -111,6 +111,7 @@ const handleSubmit = async () => {
       replace: true,
     });
   } else {
+    message.clear();
     message.error("登录失败," + res.message);
   }
   console.log(form);

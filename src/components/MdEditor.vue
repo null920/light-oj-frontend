@@ -2,7 +2,6 @@
   <Editor
     :value="value"
     :mode="mode"
-    :locale="locale"
     :plugins="plugins"
     @change="handleChange"
   />
