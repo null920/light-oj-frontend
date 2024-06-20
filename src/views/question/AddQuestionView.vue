@@ -156,11 +156,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onBeforeMount, onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import MdEditor from "@/components/MdEditor.vue";
 import { QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
-import { onBeforeRouteUpdate, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 const updatePage = route.path.includes("update");

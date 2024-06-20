@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, ref } from "vue";
 import { Question, QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
@@ -41,7 +41,7 @@ const router = useRouter();
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
-  pageSize: 2,
+  pageSize: 10,
   current: 1,
 });
 const onPageChange = (current: number) => {
@@ -161,5 +161,7 @@ const doDelete = async (question: Question) => {
 </script>
 <style scoped>
 #manageQuestionView {
+  max-width: 1340px;
+  margin: 0 auto;
 }
 </style>
