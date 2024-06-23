@@ -67,10 +67,11 @@ import { reactive } from "vue";
 import { IconUser, IconLock } from "@arco-design/web-vue/es/icon";
 import { UserControllerService, UserLoginRequest } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 
 const form = reactive({
@@ -106,10 +107,19 @@ const handleSubmit = async () => {
     await store.dispatch("user/getLoginUser");
     message.clear();
     message.success("登录成功");
-    router.push({
-      path: "/",
-      replace: true,
-    });
+    // 如果有重定向地址，跳转到重定向地址
+    if (route.fullPath.includes("redirect")) {
+      router.push({
+        path: route.query.redirect as string,
+        replace: true,
+      });
+      // 否则跳转到首页
+    } else {
+      router.push({
+        path: "/",
+        replace: true,
+      });
+    }
   } else {
     message.clear();
     message.error("登录失败," + res.message);

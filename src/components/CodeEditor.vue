@@ -39,15 +39,12 @@ const value = ref("Hello World");
 watch(
   () => props.language,
   () => {
-    codeEditor.value = monaco.editor.create(codeEditorRef.value, {
-      value: props.value,
-      language: props.language,
-      folding: true,
-      foldingHighlight: true,
-      showFoldingControls: "always",
-      automaticLayout: true,
-      lineNumbers: "on",
-    });
+    if (codeEditor.value) {
+      monaco.editor.setModelLanguage(
+        toRaw(codeEditor.value).getModel(),
+        props.language
+      );
+    }
   }
 );
 

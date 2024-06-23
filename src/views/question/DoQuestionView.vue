@@ -1,5 +1,5 @@
 <template>
-  <div id="showQuestionView">
+  <div id="doQuestionView">
     <a-split
       :style="{
         height: '70vh',
@@ -19,13 +19,13 @@
                 :column="{ xs: 1, md: 2, lg: 3 }"
               >
                 <a-descriptions-item label="时间限制">
-                  {{ question.judgeConfig.timeLimit ?? 0 }}
+                  {{ `${question.judgeConfig.timeLimit ?? 0} ms` }}
                 </a-descriptions-item>
                 <a-descriptions-item label="内存限制">
-                  {{ question.judgeConfig.memoryLimit ?? 0 }}
+                  {{ `${question.judgeConfig.memoryLimit ?? 0} MB` }}
                 </a-descriptions-item>
-                <a-descriptions-item label="时间限制">
-                  {{ question.judgeConfig.stackLimit ?? 0 }}
+                <a-descriptions-item label="堆栈限制">
+                  {{ `${question.judgeConfig.stackLimit ?? 0} MB` }}
                 </a-descriptions-item>
               </a-descriptions>
               <template #extra>
@@ -70,11 +70,11 @@
                           placeholder="编程语言"
                           :trigger-props="{ autoFitPopupMinWidth: true }"
                         >
-                          <a-option>c</a-option>
-                          <a-option>cpp</a-option>
+                          <a-option disabled>c</a-option>
+                          <a-option disabled>cpp</a-option>
                           <a-option>java</a-option>
-                          <a-option>python</a-option>
-                          <a-option>go</a-option>
+                          <a-option disabled>python</a-option>
+                          <a-option disabled>go</a-option>
                         </a-select>
                       </a-form-item>
                     </a-form>
@@ -183,7 +183,7 @@ const onSubmit = async () => {
 </script>
 
 <style scoped>
-#showQuestionView {
+#doQuestionView {
 }
 
 .arco-card-size-medium.arco-card-body {

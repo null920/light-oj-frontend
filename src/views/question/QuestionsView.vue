@@ -203,7 +203,7 @@ const toQuestionPage = (question: Question) => {
 </script>
 <style scoped>
 #questionsView {
-  max-width: 1340px;
+  max-width: 1420px;
   margin: 0 auto;
 }
 </style>

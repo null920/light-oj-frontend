@@ -8,7 +8,7 @@ import UserRegisterView from "@/views/user/UserRegisterView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 import QuestionsView from "@/views/question/QuestionsView.vue";
-import ShowQuestionView from "@/views/question/ShowQuestionView.vue";
+import DoQuestionView from "@/views/question/DoQuestionView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -50,7 +50,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/view/question/:id",
     name: "在线做题",
-    component: ShowQuestionView,
+    component: DoQuestionView,
     props: true,
     meta: {
       access: ACCESS_ENUM.USER,

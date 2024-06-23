@@ -37,7 +37,7 @@
             未登录
           </div>
           <div v-else>
-            <IconUser />
+            <IconUser size="32px" />
           </div>
           <template #trigger-icon></template>
         </a-avatar>
