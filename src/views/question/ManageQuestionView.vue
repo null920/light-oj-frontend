@@ -14,6 +14,22 @@
       }"
       @page-change="onPageChange"
     >
+      <template #content="{ record }">
+        <a-typography-paragraph
+          :ellipsis="{
+            rows: 4,
+            showTooltip: {
+              type: 'popover',
+              props: {
+                style: { maxWidth: `500px` },
+                position: 'bottom',
+              },
+            },
+          }"
+        >
+          {{ record.content }}
+        </a-typography-paragraph>
+      </template>
       <template #optional="{ record }">
         <a-space>
           <a-button status="success" @click="doView(record)">查看</a-button>
@@ -92,7 +108,8 @@ const columns = [
   },
   {
     title: "内容",
-    dataIndex: "content",
+    slotName: "content",
+    width: 200,
   },
   {
     title: "标签",
@@ -161,7 +178,7 @@ const doDelete = async (question: Question) => {
 </script>
 <style scoped>
 #manageQuestionView {
-  max-width: 1420px;
+  max-width: 1560px;
   margin: 0 auto;
 }
 </style>

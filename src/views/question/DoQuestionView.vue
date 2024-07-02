@@ -121,7 +121,6 @@ import { ref, withDefaults, defineProps, onMounted } from "vue";
 import {
   QuestionControllerService,
   QuestionSubmitAddRequest,
-  QuestionSubmitControllerService,
   QuestionVO,
 } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
@@ -168,7 +167,7 @@ const onSubmit = async () => {
     return;
   }
   submitLoading.value = !submitLoading.value;
-  const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost({
+  const res = await QuestionControllerService.doQuestionSubmitUsingPost({
     ...form.value,
     questionId: question.value.id,
   });

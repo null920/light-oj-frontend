@@ -9,6 +9,7 @@ import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 import QuestionsView from "@/views/question/QuestionsView.vue";
 import DoQuestionView from "@/views/question/DoQuestionView.vue";
+import SubmitQuestionView from "@/views/question/SubmitQuestionView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -81,6 +82,11 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       access: ACCESS_ENUM.ADMIN,
     },
+  },
+  {
+    path: "/submit/question",
+    name: "提交题目",
+    component: SubmitQuestionView,
   },
   // {
   //   path: "/admin",
