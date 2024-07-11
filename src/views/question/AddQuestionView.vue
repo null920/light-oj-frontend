@@ -309,7 +309,7 @@ const handleSubmit = async () => {
       content: "创建中...",
       duration: 10000,
     });
-    console.log(form);
+    //console.log(form);
     const res = await QuestionControllerService.addQuestionUsingPost(
       form.value
     );

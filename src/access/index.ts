@@ -10,7 +10,7 @@ router.beforeEach(async (to, from, next) => {
   if (!currentUser || !currentUser.userRole) {
     // 等用户登录成功后，再执行后续的代码
     await store.dispatch("user/getLoginUser");
-    console.log(user.loginUser);
+    //console.log(user.loginUser);
   }
   currentUser = user.loginUser;
 

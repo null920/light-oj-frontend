@@ -153,7 +153,7 @@ const handleSubmit = async () => {
   } else {
     message.error("注册失败," + res.message);
   }
-  console.log(form);
+  //console.log(form);
 };
 </script>
 

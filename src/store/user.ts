@@ -17,11 +17,19 @@ export default {
         content: "",
         duration: 10000,
       });
-      const res = await UserControllerService.getLoginUserUsingGet();
-      if (res.code === 0) {
-        commit("updateUser", res.data);
-        message.clear();
-      } else {
+      try {
+        const res = await UserControllerService.getLoginUserUsingGet();
+        if (res.code === 0) {
+          commit("updateUser", res.data);
+          message.clear();
+        } else {
+          message.clear();
+          commit("updateUser", {
+            ...state.loginUser,
+            userRole: ACCESS_ENUM.NOT_LOGIN,
+          });
+        }
+      } catch (e) {
         message.clear();
         commit("updateUser", {
           ...state.loginUser,

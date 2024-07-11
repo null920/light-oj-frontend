@@ -51,7 +51,12 @@
         {{ record.id.toString().slice(-5) }}
       </template>
       <template #status="{ record }">
-        {{ getQuestionStatus(record.status) }}
+        <a-space size="large">
+          <a-badge
+            :status="getQuestionStatus(record.status)"
+            :text="getQuestionStatusText(record.status)"
+          />
+        </a-space>
       </template>
       <template #message="{ record }">
         {{ record.judgeInfo.message }}
@@ -67,8 +72,8 @@
           >{{ record.questionVO.title }}
         </a-link>
       </template>
-      <template #userName="{ record }">
-        {{ record.submitterUserVO.userName }}
+      <template #submitUserName="{ record }">
+        {{ record?.submitterUserVO?.userName ?? "未知" }}
       </template>
     </a-table>
   </div>
@@ -171,7 +176,7 @@ watchEffect(() => {
   loadData();
 });
 
-const getQuestionStatus = (status: number) => {
+const getQuestionStatusText = (status: number) => {
   if (status === 0) {
     return "等待中";
   } else if (status === 1) {
@@ -180,6 +185,18 @@ const getQuestionStatus = (status: number) => {
     return "成功";
   } else if (status === 3) {
     return "失败";
+  }
+};
+
+const getQuestionStatus = (status: number) => {
+  if (status === 0) {
+    return "normal";
+  } else if (status === 1) {
+    return "processing";
+  } else if (status === 2) {
+    return "success";
+  } else if (status === 3) {
+    return "danger";
   }
 };
 
@@ -221,7 +238,7 @@ const columns = [
   },
   {
     title: "提交者",
-    slotName: "userName",
+    slotName: "submitUserName",
   },
   {
     title: "创建时间",

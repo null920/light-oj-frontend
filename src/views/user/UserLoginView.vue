@@ -102,29 +102,35 @@ const handleSubmit = async () => {
     content: "登录中...",
     duration: 10000,
   });
-  const res = await UserControllerService.userLoginUsingPost(form);
-  if (res.code === 0) {
-    await store.dispatch("user/getLoginUser");
-    message.clear();
-    message.success("登录成功");
-    // 如果有重定向地址，跳转到重定向地址
-    if (route.fullPath.includes("redirect")) {
-      router.push({
-        path: route.query.redirect as string,
-        replace: true,
-      });
-      // 否则跳转到首页
+
+  try {
+    const res = await UserControllerService.userLoginUsingPost(form);
+    if (res.code === 0) {
+      await store.dispatch("user/getLoginUser");
+      message.clear();
+      message.success("登录成功");
+      // 如果有重定向地址，跳转到重定向地址
+      if (route.fullPath.includes("redirect")) {
+        router.push({
+          path: route.query.redirect as string,
+          replace: true,
+        });
+        // 否则跳转到首页
+      } else {
+        router.push({
+          path: "/",
+          replace: true,
+        });
+      }
     } else {
-      router.push({
-        path: "/",
-        replace: true,
-      });
+      message.clear();
+      message.error("登录失败," + res.message);
     }
-  } else {
+  } catch (e) {
     message.clear();
-    message.error("登录失败," + res.message);
+    message.error("登录失败," + e);
   }
-  console.log(form);
+  //console.log(form);
 };
 /**
  * 跳转到注册页面

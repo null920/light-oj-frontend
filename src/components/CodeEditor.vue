@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
   value: () => "",
   language: "java",
   handleChange: (v: string) => {
-    console.log(v);
+    //console.log(v);
   },
 });
 

@@ -30,8 +30,8 @@ npm run serve
 
 3. 浏览器访问 http://localhost:8080
 
+根据后端接口自动生成请求文件
 
-工具后端接口自动生成请求文件
 ```shell
 openapi --input http://localhost:8080/api/v2/api-docs --output ./generated --client axios
 ```

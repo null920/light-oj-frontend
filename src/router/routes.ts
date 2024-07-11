@@ -38,15 +38,20 @@ export const routes: Array<RouteRecordRaw> = [
       hideInMenu: true,
     },
   },
+  // {
+  //   path: "/",
+  //   name: "题库",
+  //   component: HomeView,
+  // },
   {
     path: "/",
-    name: "题库",
-    component: HomeView,
-  },
-  {
-    path: "/questions",
     name: "浏览题目",
     component: QuestionsView,
+  },
+  {
+    path: "/submit/question",
+    name: "已提交题目",
+    component: SubmitQuestionView,
   },
   {
     path: "/view/question/:id",
@@ -83,11 +88,7 @@ export const routes: Array<RouteRecordRaw> = [
       access: ACCESS_ENUM.ADMIN,
     },
   },
-  {
-    path: "/submit/question",
-    name: "提交题目",
-    component: SubmitQuestionView,
-  },
+
   // {
   //   path: "/admin",
   //   name: "管理员页面",

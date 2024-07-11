@@ -79,7 +79,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import { Question, QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
@@ -139,20 +139,25 @@ const loadData = async () => {
     content: "加载中...",
     duration: 10000,
   });
-  const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
-    searchParams.value
-  );
-  if (res.code === 0) {
+  try {
+    const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
+      searchParams.value
+    );
+    if (res.code === 0) {
+      message.clear();
+      message.success({
+        content: "加载完成",
+        duration: 1000,
+      });
+      dataList.value = res.data.records;
+      total.value = res.data.total;
+    } else {
+      message.clear();
+      message.error("加载失败" + res.message);
+    }
+  } catch (e) {
     message.clear();
-    message.success({
-      content: "加载完成",
-      duration: 1000,
-    });
-    dataList.value = res.data.records;
-    total.value = res.data.total;
-  } else {
-    message.clear();
-    message.error("加载失败" + res.message);
+    message.error("加载失败" + e);
   }
 };
 

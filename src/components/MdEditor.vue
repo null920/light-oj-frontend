@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   mode: () => "split",
   locale: () => "zh",
   handleChange: (v: string) => {
-    console.log(v);
+    //console.log(v);
   },
 });
 </script>

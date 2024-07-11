@@ -242,7 +242,7 @@ const handleSubmit = async () => {
     content: "登录中...",
     duration: 10000,
   });
-  console.log(form);
+  //console.log(form);
   const res = await QuestionControllerService.addQuestionUsingPost(form);
   if (res.code === 0) {
     message.clear();

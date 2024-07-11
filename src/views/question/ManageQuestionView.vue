@@ -153,8 +153,13 @@ const columns = [
   },
 ];
 
-const doView = (record: any) => {
-  console.log(record);
+const doView = (question: Question) => {
+  router.push({
+    path: "/update/question",
+    query: {
+      id: question.id,
+    },
+  });
 };
 const doUpdate = (question: Question) => {
   router.push({
